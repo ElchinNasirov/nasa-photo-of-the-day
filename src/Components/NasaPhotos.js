@@ -2,14 +2,25 @@ import React, { useState, useEffect } from "react";
 import NasaCard from "./NasaCard";
 import axios from "axios";
 
+// Import Styled Components
+import styled from "styled-components";
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 3%;
+`;
+
+
+
 let NasaPhotos = () => {
     let [photos, setPhotos] = useState([]);
 
     useEffect( () => {
         axios
-        // .get('https://api.nasa.gov/planetary/apod?hd=true')
         .get('https://api.nasa.gov/planetary/apod?date=2019-03-03&api_key=DEMO_KEY')
-        // .get("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY")
         .then(res => {
             console.log(res);
             setPhotos(res.data);
@@ -17,7 +28,7 @@ let NasaPhotos = () => {
     }, []);
 
     return (
-        <div>
+        <Container>
             <NasaCard
             id= { photos.id }
             title= { photos.title }
@@ -25,7 +36,7 @@ let NasaPhotos = () => {
             explanation= { photos.explanation }
             url= { photos.url } 
             />
-        </div>
+        </Container>
     );
 }
 
